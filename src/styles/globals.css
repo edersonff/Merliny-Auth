@@ -29,9 +29,69 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.nextui-input-wrapper, .nextui-input-label--left{
+  border-radius: 5px;
+}
+.nextui-input-main-container label{
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.nextui-input-container--input {
+  height: 60px;
+}
+.nextui-c-hzQjrs-hyKnjc-asPlaceholder-true{
+  top: 28%;
+}
+.nextui-c-hzQjrs-ibDEqG-cv {
+  top: -60%;
+}
+.nextui-c-hzQjrs-eBkJfj-cv{
+  top: -60%
+}
+
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.shake:has(input:not(:focus)){
+  animation: shakeSide 0.75s;
+}
+
+@keyframes shakeSide {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(-7px);
+  }
+  20% {
+    transform: translateX(2px);
+  }
+  30% {
+    transform: translateX(-7px);
+  }
+  40% {
+    transform: translateX(7px);
+  }
+  50% {
+    transform: translateX(-2px);
+  }
+  60% {
+    transform: translateX(7px);
+  }
+  70% {
+    transform: translateX(-7px);
+  }
+  80% {
+    transform: translateX(2px);
+  }
+  90% {
+    transform: translateX(-7px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 
 /* @media (prefers-color-scheme: dark) {

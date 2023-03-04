@@ -4,24 +4,24 @@ import { feedback } from "./data";
 import { Container } from "./styles";
 
 export default function Feedback({
-  image,
+  src,
   alt,
   withContainer = false,
   button,
   top,
   ...props
 }: {
-  image: keyof typeof feedback;
+  src: keyof typeof feedback;
   alt: string;
   withContainer?: boolean;
   top?: React.ReactNode;
   button?: {
-    text: string;
+    text: string & Element<any, any>;
     onClick: () => void;
   } & React.ComponentProps<typeof Button>;
 } & React.ComponentProps<typeof Image>) {
-  const img = feedback[image];
-  const ImageContainer = withContainer ? Container : React.Fragment;
+  const img = feedback[src];
+  const ImageContainer = withContainer ? Container : "div";
   if (button) {
     const { onClick, text, ...rest } = button;
     return (
@@ -32,6 +32,7 @@ export default function Feedback({
           justifyContent: "center",
           height: "100%",
           flexDirection: "column",
+          userSelect: "none",
         }}
       >
         {top}
@@ -46,7 +47,7 @@ export default function Feedback({
         <Button
           auto
           onClick={onClick}
-          style={{ marginTop: "1rem" }}
+          css={{ mt: "1rem", p: "$10 $20" }}
           color="primary"
           {...rest}
         >
@@ -63,6 +64,8 @@ export default function Feedback({
         justifyContent: "center",
         height: "100%",
         flexDirection: "column",
+        userSelect: "none",
+        pointerEvents: "none",
       }}
     >
       {top}

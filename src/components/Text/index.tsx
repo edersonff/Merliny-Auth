@@ -1,4 +1,4 @@
-import { colors, typography } from "@/pages/theme";
+import { whiteColors, typography } from "@/pages/theme";
 import React from "react";
 import { Text, Link } from "@nextui-org/react";
 export default function T(
@@ -14,10 +14,14 @@ export default function T(
     p2?: boolean;
     s1?: boolean;
     s2?: boolean;
-    color?: keyof typeof colors;
+    color?: keyof typeof whiteColors | string;
     center?: boolean;
     right?: boolean;
     href?: string;
+    labelProps?: React.DetailedHTMLProps<
+      React.LabelHTMLAttributes<HTMLLabelElement>,
+      HTMLLabelElement
+    >;
   }
 ) {
   const {
@@ -34,6 +38,8 @@ export default function T(
     s2,
     style,
     href,
+    color,
+    labelProps,
     ...rest
   } = props;
   const className = h1
@@ -71,21 +77,46 @@ export default function T(
     : h6
     ? "h6"
     : p1
-    ? "p1"
+    ? "p"
     : p2
-    ? "p2"
+    ? "p"
     : s1
-    ? "s1"
+    ? "span"
     : s2
-    ? "s2"
+    ? "span"
     : "";
+
+  if (labelProps) {
+    return (
+      <label {...labelProps}>
+        <El
+          style={{
+            color:
+              color & whiteColors[color] ? whiteColors[color] : color ?? "",
+            textAlign: props.center
+              ? "center"
+              : props.right
+              ? "right"
+              : undefined,
+            letterSpacing: 1,
+            ...typography[className as keyof typeof typography],
+            ...style,
+          }}
+          {...rest}
+        >
+          {children}
+        </El>
+      </label>
+    );
+  }
 
   if (href) {
     return (
       <Link href={href}>
         <El
           style={{
-            color: props.color ? colors[props.color] : undefined,
+            color:
+              color & whiteColors[color] ? whiteColors[color] : color ?? "",
             textAlign: props.center
               ? "center"
               : props.right
@@ -106,9 +137,8 @@ export default function T(
   return (
     <El
       style={{
-        color: props.color ? colors[props.color] : undefined,
+        color: color & whiteColors[color] ? whiteColors[color] : color ?? "",
         textAlign: props.center ? "center" : props.right ? "right" : undefined,
-        letterSpacing: 1,
         ...typography[className as keyof typeof typography],
         ...style,
       }}

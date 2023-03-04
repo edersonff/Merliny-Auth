@@ -1,4 +1,5 @@
-import { theme } from "@/theme";
+import { disabled } from "@/pages/theme";
+import { lightTheme } from "@/theme";
 import { Button as ButtonComponent, styled } from "@nextui-org/react";
 import { Loading } from "@nextui-org/react";
 
@@ -8,6 +9,11 @@ const MyButton = styled(ButtonComponent, {
   height: "38px",
   width: "100%",
   border: "0",
+  // disabled
+  "&:disabled": {
+    backgroundColor: disabled,
+    cursor: "not-allowed",
+  },
 });
 
 export default function ButtonBorder(
@@ -22,11 +28,11 @@ export default function ButtonBorder(
       {...rest}
       css={{
         minWidth: minWidth ? "unset" : "var(--nextui-space-48)",
-        backgroundColor: loading ? "$gray-300" : "var(--nextui-color-primary)",
+        backgroundColor: loading ? "$darkPurple" : "$purple",
         ...css,
       }}
     >
-      {loading ? <Loading size="xs" /> : children}
+      {loading ? <Loading color="white" /> : children}
     </MyButton>
   );
 }

@@ -1,4 +1,4 @@
-import { theme } from "@/theme";
+import { lightTheme } from "@/theme";
 import { Button as ButtonComponent, styled } from "@nextui-org/react";
 
 const MyButton = styled(ButtonComponent, {
@@ -7,7 +7,7 @@ const MyButton = styled(ButtonComponent, {
   height: "38px",
   border: "0",
 
-  [`.${theme} &`]: {
+  [`.${lightTheme} &`]: {
     backgroundColor: "$purple",
   },
 });
