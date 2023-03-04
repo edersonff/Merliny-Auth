@@ -16,7 +16,7 @@ export default function Feedback({
   withContainer?: boolean;
   top?: React.ReactNode;
   button?: {
-    text: string & Element<any, any>;
+    text: string | React.ReactNode;
     onClick: () => void;
   } & React.ComponentProps<typeof Button>;
 } & React.ComponentProps<typeof Image>) {

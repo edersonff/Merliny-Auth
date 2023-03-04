@@ -70,7 +70,7 @@ export default function Signup() {
       password: "",
       terms_accepted: false,
     },
-  });
+  } as any);
   useEffect(() => {
     console.log(errors, isValid);
   }, [errors, isValid]);
@@ -120,7 +120,7 @@ export default function Signup() {
                     marginBottom: "0.5rem",
                   }}
                 />
-                <Text h2 weight={"light"} color="primary">
+                <Text h2 color="primary">
                   {title}
                 </Text>
               </Link>
@@ -141,11 +141,11 @@ export default function Signup() {
                 }}
               >
                 <Col>
-                  <T h2 weight={"light"} color="primary">
+                  <T h2 color="primary">
                     Crie sua conta
                   </T>
                   <Spacer y={0.6} />
-                  <T p2 weight={"light"} color="primary">
+                  <T p2 color="primary">
                     {subtitle}
                   </T>
                   <Spacer y={2} />
@@ -286,7 +286,6 @@ export default function Signup() {
                         htmlFor: "switch",
                       }}
                       p2
-                      weight={"light"}
                       color="primary"
                     >
                       Eu aceito os{" "}
@@ -309,7 +308,7 @@ export default function Signup() {
                       padding: "2rem",
                     }}
                   >
-                    <T p1 weight={"light"} color="primary">
+                    <T p1 color="primary">
                       Cadastrar conta
                     </T>
                   </ButtonBorder>

@@ -1,8 +1,11 @@
 import { whiteColors, typography } from "@/pages/theme";
 import React from "react";
-import { Text, Link } from "@nextui-org/react";
+import { Link } from "@nextui-org/react";
 export default function T(
-  props: React.ComponentProps<typeof Text> & {
+  props: React.DetailedHTMLProps<
+    React.HTMLAttributes<HTMLHeadingElement>,
+    HTMLHeadingElement
+  > & {
     children: React.ReactNode;
     h1?: boolean;
     h2?: boolean;
@@ -85,7 +88,7 @@ export default function T(
     ? "span"
     : s2
     ? "span"
-    : "";
+    : "span";
 
   if (labelProps) {
     return (
@@ -93,7 +96,9 @@ export default function T(
         <El
           style={{
             color:
-              color & whiteColors[color] ? whiteColors[color] : color ?? "",
+              whiteColors[String(color) as keyof typeof whiteColors] ??
+              color ??
+              "",
             textAlign: props.center
               ? "center"
               : props.right
@@ -117,7 +122,9 @@ export default function T(
         <El
           style={{
             color:
-              color & whiteColors[color] ? whiteColors[color] : color ?? "",
+              whiteColors[String(color) as keyof typeof whiteColors] ??
+              color ??
+              "",
             textAlign: props.center
               ? "center"
               : props.right
@@ -138,7 +145,8 @@ export default function T(
   return (
     <El
       style={{
-        color: color & whiteColors[color] ? whiteColors[color] : color ?? "",
+        color:
+          whiteColors[String(color) as keyof typeof whiteColors] ?? color ?? "",
         textAlign: props.center ? "center" : props.right ? "right" : undefined,
         ...typography[className as keyof typeof typography],
         ...style,
