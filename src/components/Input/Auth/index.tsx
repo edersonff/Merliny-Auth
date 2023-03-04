@@ -1,11 +1,10 @@
+import React from "react";
 import { Input as InputComponent } from "@nextui-org/react";
 
 export default function ButtonBorder(
-  props: React.ComponentProps<typeof InputComponent> & {
-    minWidth?: boolean;
-  }
+  props: React.ComponentProps<typeof InputComponent>
 ) {
-  const { minWidth = "100px", ...rest } = props;
+  const { ...rest } = props;
   return (
     <InputComponent
       bordered

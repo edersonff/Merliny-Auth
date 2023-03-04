@@ -18,6 +18,7 @@ export default function T(
     center?: boolean;
     right?: boolean;
     href?: string;
+    style?: React.CSSProperties;
     labelProps?: React.DetailedHTMLProps<
       React.LabelHTMLAttributes<HTMLLabelElement>,
       HTMLLabelElement

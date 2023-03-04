@@ -1,3 +1,4 @@
+import React from "react";
 import { lightTheme } from "@/theme";
 import { Button as ButtonComponent, styled } from "@nextui-org/react";
 
@@ -15,6 +16,7 @@ const MyButton = styled(ButtonComponent, {
 export default function Button(
   props: React.ComponentProps<typeof ButtonComponent> & {
     minWidth?: boolean;
+    css?: React.CSSProperties;
   }
 ) {
   const { minWidth = "100px", css, ...rest } = props;

@@ -12,7 +12,7 @@ export default function TermsAndConditions() {
           Ao acessar ao site{" "}
           <a href="https://merliny.com.br/">Merliny Invest</a>, concorda em
           cumprir estes termos de serviço, todas as leis e regulamentos
-          aplicáveis ​​e concorda que é responsável pelo cumprimento de todas as
+          aplicáveis e concorda que é responsável pelo cumprimento de todas as
           leis locais aplicáveis. Se você não concordar com algum desses termos,
           está proibido de usar ou acessar este site. Os materiais contidos
           neste site são protegidos pelas leis de direitos autorais e marcas
@@ -90,7 +90,7 @@ export default function TermsAndConditions() {
         <li>
           <span style={{ color: "rgb(68, 68, 68)" }}>
             Além disso, o Merliny Invest não garante ou faz qualquer
-            representação relativa à precisão, aos resultados prováveis ​​ou à
+            representação relativa à precisão, aos resultados prováveis ou à
             confiabilidade do uso dos materiais em seu site ou de outra forma
             relacionado a esses materiais ou em sites vinculados a este site.
           </span>
@@ -102,8 +102,8 @@ export default function TermsAndConditions() {
       <p>
         <span style={{ color: "rgb(68, 68, 68)" }}>
           Em nenhum caso o Merliny Invest ou seus fornecedores serão
-          responsáveis ​​por quaisquer danos (incluindo, sem limitação, danos
-          por perda de dados ou lucro ou devido a interrupção dos negócios)
+          responsáveis por quaisquer danos (incluindo, sem limitação, danos por
+          perda de dados ou lucro ou devido a interrupção dos negócios)
           decorrentes do uso ou da incapacidade de usar os materiais em Merliny
           Invest, mesmo que Merliny Invest ou um representante autorizado da
           Merliny Invest tenha sido notificado oralmente ou por escrito da

@@ -1,5 +1,5 @@
+import React from "react";
 import { disabled } from "@/pages/theme";
-import { lightTheme } from "@/theme";
 import { Button as ButtonComponent, styled } from "@nextui-org/react";
 import { Loading } from "@nextui-org/react";
 
@@ -20,6 +20,7 @@ export default function ButtonBorder(
   props: React.ComponentProps<typeof ButtonComponent> & {
     minWidth?: boolean;
     loading?: boolean;
+    css?: React.CSSProperties;
   }
 ) {
   const { minWidth = "100px", css, loading, children, ...rest } = props;
