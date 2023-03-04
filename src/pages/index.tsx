@@ -1,21 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-
 import {
   Card,
   Col,
-  Container,
   Image,
-  Table,
-  Row,
-  Tooltip,
-  User,
   Text,
-  Divider,
   Link,
   Spacer,
   Input,
   Progress,
 } from "@nextui-org/react";
+import NextLink from "next/link";
 import T from "../components/Text";
 import ButtonBorder from "../components/Button/border";
 import AuthInput from "../components/Input/Auth";
@@ -220,7 +214,9 @@ function FindEmail({ setSteap }: any) {
       <Spacer y={1.2} />
       <Link>Entre em uma conta empresarial</Link>
       <Spacer y={0.5} />
-      <Link href="/signup">Faça seu cadastro</Link>
+      <NextLink href="/signup">
+        <Link>Faça seu cadastro</Link>
+      </NextLink>
     </>
   );
 }
@@ -354,7 +350,9 @@ function EndLogin({ setSteap }: any) {
       <Spacer y={1.2} />
       <Link>Entre em uma conta empresarial</Link>
       <Spacer y={0.5} />
-      <Link href="/signup">Faça seu cadastro</Link>
+      <NextLink href="/signup">
+        <Link>Faça seu cadastro</Link>
+      </NextLink>
     </>
   );
 }

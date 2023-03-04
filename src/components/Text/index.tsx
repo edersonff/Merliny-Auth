@@ -1,6 +1,7 @@
 import { whiteColors, typography } from "@/data/theme";
 import React from "react";
 import { Link } from "@nextui-org/react";
+import NextLink from "next/link";
 export default function T(
   props: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLHeadingElement>,
@@ -118,27 +119,29 @@ export default function T(
 
   if (href) {
     return (
-      <Link href={href}>
-        <El
-          style={{
-            color:
-              whiteColors[String(color) as keyof typeof whiteColors] ??
-              color ??
-              "",
-            textAlign: props.center
-              ? "center"
-              : props.right
-              ? "right"
-              : undefined,
-            letterSpacing: 1,
-            ...typography[className as keyof typeof typography],
-            ...style,
-          }}
-          {...rest}
-        >
-          {children}
-        </El>
-      </Link>
+      <NextLink href={href}>
+        <Link>
+          <El
+            style={{
+              color:
+                whiteColors[String(color) as keyof typeof whiteColors] ??
+                color ??
+                "",
+              textAlign: props.center
+                ? "center"
+                : props.right
+                ? "right"
+                : undefined,
+              letterSpacing: 1,
+              ...typography[className as keyof typeof typography],
+              ...style,
+            }}
+            {...rest}
+          >
+            {children}
+          </El>
+        </Link>
+      </NextLink>
     );
   }
 

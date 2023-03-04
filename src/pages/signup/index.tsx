@@ -1,27 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
 
 import {
   Card,
   Col,
-  Container,
   Image,
-  Table,
   Row,
-  Tooltip,
-  User,
   Text,
-  Divider,
   Link,
   Spacer,
   Input,
-  Progress,
   Grid,
   Switch,
   globalCss,
 } from "@nextui-org/react";
 import T from "../../components/Text";
 import ButtonBorder from "../../components/Button/border";
-import { FaLock, FaUserCircle } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import Feedback from "@/components/Feedback";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
@@ -31,6 +25,7 @@ import { SignupContainer } from "@/styles/singup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { singupSchema } from "../../data/forms/singup";
 import { MdEmail } from "react-icons/md";
+import NextLink from "next/link";
 
 const globalStyles = globalCss({
   ".nextui-input-main-container": { w: "100%!important" },
@@ -289,11 +284,13 @@ export default function Signup() {
                       color="primary"
                     >
                       Eu aceito os{" "}
-                      <Link href="/terms/terms_and_conditions">
-                        Termos de uso
-                      </Link>{" "}
+                      <NextLink href="/terms/terms_and_conditions">
+                        <Link>Termos de uso</Link>
+                      </NextLink>{" "}
                       e a{" "}
-                      <Link href="/terms/privacy">Política de privacidade</Link>
+                      <NextLink href="/terms/privacy">
+                        <Link>Política de privacidade</Link>
+                      </NextLink>
                     </T>
                   </Row>
 
