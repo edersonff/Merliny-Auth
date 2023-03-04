@@ -1,5 +1,5 @@
 import { createTheme } from "@nextui-org/react";
-import { darkColors, whiteColors } from "./pages/theme";
+import { darkColors, whiteColors } from "./data/theme";
 
 export const lightTheme = createTheme({
   type: "white",

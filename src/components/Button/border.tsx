@@ -1,5 +1,5 @@
 import React from "react";
-import { disabled } from "@/pages/theme";
+import { disabled } from "@/data/theme";
 import { Button as ButtonComponent, styled } from "@nextui-org/react";
 import { Loading } from "@nextui-org/react";
 

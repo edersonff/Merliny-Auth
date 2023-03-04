@@ -6,7 +6,7 @@ import { Link, Text } from "@nextui-org/react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { lightTheme, darkTheme } from "@/theme";
 import CookieConsent from "react-cookie-consent";
-import { whiteColors } from "./theme";
+import { whiteColors } from "../data/theme";
 import { AppCookieContainer } from "@/styles/App";
 import React, { useEffect, useState } from "react";
 import { Inter } from "next/font/google";

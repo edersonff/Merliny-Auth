@@ -1,4 +1,4 @@
-import { whiteColors, typography } from "@/pages/theme";
+import { whiteColors, typography } from "@/data/theme";
 import React from "react";
 import { Link } from "@nextui-org/react";
 export default function T(

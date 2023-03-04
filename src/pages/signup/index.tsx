@@ -25,11 +25,11 @@ import { FaLock, FaUserCircle } from "react-icons/fa";
 import Feedback from "@/components/Feedback";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { signupData } from "./data";
+import { signupData } from "../../data/data";
 import { feedback } from "@/components/Feedback/data";
 import { SignupContainer } from "@/styles/singup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { singupSchema } from "./form";
+import { singupSchema } from "../../data/forms/singup";
 import { MdEmail } from "react-icons/md";
 
 const globalStyles = globalCss({
