@@ -25,7 +25,7 @@ import { FaLock, FaUserCircle } from "react-icons/fa";
 import Feedback from "@/components/Feedback";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import { signupData } from "../../data/data";
+import { signupData } from "../../data/signupData";
 import { feedback } from "@/components/Feedback/data";
 import { SignupContainer } from "@/styles/singup";
 import { yupResolver } from "@hookform/resolvers/yup";
