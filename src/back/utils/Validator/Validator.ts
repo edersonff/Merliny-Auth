@@ -21,6 +21,7 @@ export default function validator(body: any[string], params: Array<param>) {
     });
     const regexs: Array<regex> = [
       {
+        //eslint-disable-next-line no-useless-escape
         email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
       },
       {
