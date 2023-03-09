@@ -93,8 +93,7 @@ function FindEmail({ setSteap }: { setSteap: (steap: number) => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const checkEmail = (data) => {
-    console.log(data);
+  const checkEmail = (data: { email: string }) => {
     setLoading(true);
     authService
       .checkEmail({
@@ -130,7 +129,7 @@ function FindEmail({ setSteap }: { setSteap: (steap: number) => void }) {
   } as any);
 
   useEffect(() => {
-    setError(errors.email?.message);
+    setError(errors.email?.message ?? "");
   }, [errors]);
 
   return (
@@ -216,7 +215,7 @@ function FindEmail({ setSteap }: { setSteap: (steap: number) => void }) {
           p: "2.1rem",
         }}
         size="xl"
-        onPress={handleSubmit(checkEmail)}
+        onPress={handleSubmit(checkEmail) as any}
       >
         <T
           style={{
@@ -265,7 +264,7 @@ function EndLogin({ setSteap }: { setSteap: (steap: number) => void }) {
       if (response.status === 200) {
         setSteap(2);
       }
-    } catch (error: { response: { data: { message: string } } }) {
+    } catch (error: any) {
       password.current?.focus();
       setError(error?.response?.data?.message);
     } finally {

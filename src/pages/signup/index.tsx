@@ -27,7 +27,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { singupSchema } from "../../data/forms/singup";
 import { MdEmail } from "react-icons/md";
 import NextLink from "next/link";
-import { authService } from "@/services/auth";
+import { authService, RegisterBody } from "@/services/auth";
 import Lottie from "lottie-react";
 import sucessAnimation from "../../assets/animations/success.json";
 import visualData from "../../assets/animations/Visual data.json";
@@ -49,7 +49,7 @@ export default function Signup() {
 
   globalStyles();
 
-  const handleSignup = (data) => {
+  const handleSignup = (data: RegisterBody) => {
     setLoading(true);
     authService
       .register(data)
@@ -78,7 +78,7 @@ export default function Signup() {
       });
   };
 
-  const onChangeSwitch = (e) => {
+  const onChangeSwitch = (e: any) => {
     const value = e.target.checked;
     setValue("terms_accepted", value);
     if (value) {
@@ -366,7 +366,7 @@ export default function Signup() {
                     !getValues("terms_accepted")
                   }
                   loading={loading}
-                  onPress={handleSubmit(handleSignup)}
+                  onPress={handleSubmit(handleSignup as any) as any}
                   css={{
                     w: "100%",
                   }}
