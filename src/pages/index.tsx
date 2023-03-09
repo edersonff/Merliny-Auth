@@ -10,12 +10,8 @@ import { FiAlertCircle } from "react-icons/fi";
 import { findEmail } from "@/data/forms/findEmail";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-/**
- * :root{
-  --nextui-colors-border: #000
-}
+import Head from "@/components/Head";
 
- */
 export default function Login() {
   const [steap, setSteap] = useState(0);
 
@@ -29,6 +25,11 @@ export default function Login() {
         pt: 80,
       }}
     >
+      <Head
+        title="Login"
+        description="Faça login na sua conta"
+        keywords={["login", "entrar", "acessar", "conta", "minha conta"]}
+      />
       <Link
         href="/"
         css={{

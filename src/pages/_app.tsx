@@ -11,6 +11,7 @@ import { AppCookieContainer } from "@/styles/App";
 import React, { useEffect, useState } from "react";
 import { Inter } from "next/font/google";
 import { useSSR } from "@nextui-org/react";
+import LoadingScreen from "@/components/Loading";
 
 React.useLayoutEffect = React.useEffect;
 
@@ -41,6 +42,7 @@ export default function App({ Component, pageProps }: AppProps) {
       }}
     >
       <div className={inter.className}>
+        <LoadingScreen />
         <Component {...pageProps} />
       </div>
       <AppCookieContainer
