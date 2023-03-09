@@ -17,13 +17,13 @@ export default function Feedback({
   top?: React.ReactNode;
   button?: {
     text: string | React.ReactNode;
-    onClick: () => void;
+    onPress: () => void;
   } & React.ComponentProps<typeof Button>;
 } & React.ComponentProps<typeof Image>) {
   const img = feedback[src];
   const ImageContainer = withContainer ? Container : "div";
   if (button) {
-    const { onClick, text, ...rest } = button;
+    const { onPress, text, ...rest } = button;
     return (
       <ImageContainer
         style={{
@@ -46,7 +46,7 @@ export default function Feedback({
         />
         <Button
           auto
-          onClick={onClick}
+          onPress={onPress}
           css={{ mt: "1rem", p: "$10 $20" }}
           color="primary"
           {...rest}

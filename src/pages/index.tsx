@@ -1,22 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Card,
-  Col,
-  Image,
-  Text,
-  Link,
-  Spacer,
-  Input,
-  Progress,
-} from "@nextui-org/react";
+import { Card, Col, Image, Link, Spacer, Input } from "@nextui-org/react";
 import NextLink from "next/link";
 import T from "../components/Text";
 import ButtonBorder from "../components/Button/border";
-import AuthInput from "../components/Input/Auth";
+import { motion } from "framer-motion";
 import { authService } from "@/services/auth";
 import { FaUserCircle } from "react-icons/fa";
 import { FiAlertCircle } from "react-icons/fi";
+import { findEmail } from "@/data/forms/findEmail";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
+/**
+ * :root{
+  --nextui-colors-border: #000
+}
 
+ */
 export default function Login() {
   const [steap, setSteap] = useState(0);
 
@@ -30,56 +29,40 @@ export default function Login() {
         pt: 80,
       }}
     >
+      <Link
+        href="/"
+        css={{
+          d: "flex",
+          ai: "center",
+          jc: "center",
+          mb: "2rem",
+        }}
+      >
+        <Image
+          src="/logo.webp"
+          width={88}
+          alt="logo"
+          style={{
+            marginRight: "0.5rem",
+            marginBottom: "0.5rem",
+          }}
+        />
+      </Link>
       <Card
         css={{
-          mw: "470px",
+          mw: "500px",
           d: "flex",
           jc: "center",
           alignItems: "center",
-          backgroundColor: "#fff",
-          p: "30px",
+          p: 30,
+          pb: 40,
+          pt: steap === 0 ? 0 : 40,
+          bg: "white",
+          transition: "all 0.5s ease",
+          br: 30,
         }}
-        variant="bordered"
+        variant={steap === 0 ? "flat" : "shadow"}
       >
-        <Card.Header>
-          <Col>
-            <Progress
-              striped
-              value={steap}
-              max={2}
-              size="sm"
-              css={{
-                h: steap === 0 ? 0 : 8,
-                opacity: steap === 0 ? 0 : 1,
-                transition: "all 0.3s ease",
-              }}
-            />
-
-            <Link
-              href="/"
-              css={{
-                d: "flex",
-                ai: "center",
-                jc: "center",
-                w: "100%",
-              }}
-            >
-              <Image
-                src="/logo.webp"
-                width={55}
-                height={55}
-                alt="logo"
-                style={{
-                  marginRight: "0.5rem",
-                  marginBottom: "0.5rem",
-                }}
-              />
-              <Text h2 weight={"light"} color="primary">
-                Merliny
-              </Text>
-            </Link>
-          </Col>
-        </Card.Header>
         <Card.Body>
           {steap === 0 && <FindEmail setSteap={setSteap} />}
           {steap === 1 && <EndLogin setSteap={setSteap} />}
@@ -89,13 +72,14 @@ export default function Login() {
         <>
           <Spacer y={2} />
           <Link
+            href="#"
             css={{
               d: "flex",
               w: "100%",
               ta: "center",
               fs: "1.2rem",
             }}
-            onClick={() => setSteap(0)}
+            onPress={() => setSteap(0)}
           >
             Voltar
           </Link>
@@ -105,63 +89,96 @@ export default function Login() {
   );
 }
 
-function FindEmail({ setSteap }: any) {
+function FindEmail({ setSteap }: { setSteap: (steap: number) => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const emailRef = useRef<HTMLInputElement>(null);
 
-  const checkEmail = async () => {
-    try {
-      setLoading(true);
-      const response = await authService.checkEmail({
-        email: emailRef?.current?.value ?? "",
+  const checkEmail = (data) => {
+    console.log(data);
+    setLoading(true);
+    authService
+      .checkEmail({
+        email: data?.email,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          localStorage.setItem("email", data.email);
+          setSteap(1);
+        }
+      })
+      .catch((error: any) => {
+        setError(error?.response?.data?.message);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-      if (response.status === 200) {
-        localStorage.setItem("email", emailRef?.current?.value ?? "");
-        setSteap(1);
-      }
-    } catch (error: any) {
-      emailRef.current?.focus();
-      setError(error.message);
-    } finally {
-      setLoading(false);
-    }
   };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<{
+    email: string;
+  }>({
+    mode: "onChange",
+    revalidateMode: "onChange",
+    resolver: yupResolver(findEmail),
+    defaultValues: {
+      email: "",
+    },
+    onsubmit: checkEmail,
+  } as any);
+
+  useEffect(() => {
+    setError(errors.email?.message);
+  }, [errors]);
 
   return (
     <>
-      <T
-        h3
-        color="black"
-        style={{
-          width: "100%",
-          fontWeight: 700,
-          marginBottom: "0.2rem",
-        }}
-      >
-        Faça login na Merliny
-      </T>
-      <T
-        p2
-        color="#242424"
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, delay: 0.2 }}
         style={{
           width: "100%",
         }}
       >
-        Não é seu dispositivo? Use uma janela privada ou anônima para entrar.
-      </T>
-      <Spacer y={2.5} />
-      <Col>
-        <AuthInput
-          ref={emailRef}
-          labelPlaceholder="Email"
-          name="email"
+        <T
+          h3
+          color="black"
+          style={{
+            width: "100%",
+            fontWeight: 700,
+            marginBottom: "0.2rem",
+          }}
+        >
+          Digite seu email
+        </T>
+      </motion.div>
+      <Spacer y={1} />
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+        style={{
+          width: "100%",
+        }}
+      >
+        <Input
           type={"email"}
-          label="Email"
+          color="primary"
           autoComplete="email"
+          placeholder="E-mail"
           autoFocus
           status={error ? "error" : "primary"}
-          onChange={() => setError("")}
+          css={{
+            width: "100%",
+          }}
+          style={{
+            fontSize: "1.2em",
+          }}
+          bordered
+          {...register("email")}
         />
         {error && (
           <T
@@ -190,38 +207,45 @@ function FindEmail({ setSteap }: any) {
             : {error}
           </T>
         )}
-      </Col>
-      <Spacer y={1} />
+      </motion.div>
+      <Spacer y={2.5} />
       <ButtonBorder
         loading={loading}
         css={{
           w: "100%",
-          p: "2.3rem",
+          p: "2.1rem",
         }}
         size="xl"
-        onClick={checkEmail}
+        onPress={handleSubmit(checkEmail)}
       >
         <T
           style={{
             margin: 0,
-            fontSize: "1.2em",
+            fontSize: "1.15em",
           }}
           h5
         >
           Continuar
         </T>
       </ButtonBorder>
-      <Spacer y={1.2} />
-      <Link>Entre em uma conta empresarial</Link>
-      <Spacer y={0.5} />
-      <NextLink href="/signup">
-        <Link>Faça seu cadastro</Link>
-      </NextLink>
+      <Spacer y={1.25} />
+      <T
+        p2
+        color="gray"
+        style={{
+          width: "100%",
+        }}
+      >
+        Você não tem uma conta?{" "}
+        <NextLink href="/signup">
+          <Link>Faça seu cadastro</Link>
+        </NextLink>
+      </T>
     </>
   );
 }
 
-function EndLogin({ setSteap }: any) {
+function EndLogin({ setSteap }: { setSteap: (steap: number) => void }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -241,9 +265,9 @@ function EndLogin({ setSteap }: any) {
       if (response.status === 200) {
         setSteap(2);
       }
-    } catch (error: any) {
+    } catch (error: { response: { data: { message: string } } }) {
       password.current?.focus();
-      setError(error.message);
+      setError(error?.response?.data?.message);
     } finally {
       setLoading(false);
     }
@@ -264,78 +288,100 @@ function EndLogin({ setSteap }: any) {
       </T>
       <Spacer y={1} />
       <Col>
-        <Card css={{ w: "100%", p: "0.2rem 0.5rem", br: 5 }} variant="bordered">
-          <Card.Body
-            css={{
-              fd: "row",
-              ai: "center",
-            }}
+        <motion.div
+          initial={{ opacity: 0, y: 7 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          style={{
+            width: "100%",
+          }}
+        >
+          <Card
+            css={{ w: "100%", p: "0.2rem 0.5rem", br: 5 }}
+            variant="bordered"
           >
-            <FaUserCircle size={30} />
+            <Card.Body
+              css={{
+                fd: "row",
+                ai: "center",
+              }}
+            >
+              <FaUserCircle size={26} />
+              <T
+                style={{
+                  margin: 0,
+                  marginLeft: "0.5rem",
+                  fontSize: "1.3rem",
+                }}
+                p1
+              >
+                {email}
+              </T>
+            </Card.Body>
+          </Card>
+        </motion.div>
+        <Spacer y={2} />
+
+        <motion.div
+          initial={{ opacity: 0, y: 7 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          style={{
+            width: "100%",
+          }}
+        >
+          <Input.Password
+            ref={password}
+            labelPlaceholder="Senha"
+            bordered
+            name="password"
+            type={"password"}
+            label="Senha"
+            status={error ? "error" : "primary"}
+            onChange={() => setError("")}
+            size="xl"
+            css={{
+              w: "100%",
+            }}
+          />
+          {error && (
             <T
               style={{
-                margin: 0,
-                marginLeft: "0.5rem",
-                fontSize: "1.3rem",
-              }}
-              p1
-            >
-              {email}edersonff_@hotmail.com.br
-            </T>
-          </Card.Body>
-        </Card>
-        <Spacer y={2} />
-        <Input.Password
-          ref={password}
-          labelPlaceholder="Senha"
-          bordered
-          name="password"
-          type={"password"}
-          label="Senha"
-          status={error ? "error" : "primary"}
-          onChange={() => setError("")}
-          size="xl"
-          css={{
-            w: "100%",
-          }}
-        />
-        {error && (
-          <T
-            style={{
-              marginTop: "0.5rem",
-              display: "flex",
-              alignItems: "center",
-            }}
-            p1
-            color="var(--nextui-colors-red600)"
-          >
-            <b
-              style={{
-                fontWeight: 700,
+                marginTop: "0.5rem",
                 display: "flex",
                 alignItems: "center",
               }}
+              p1
+              color="var(--nextui-colors-red600)"
             >
-              <FiAlertCircle
+              <b
                 style={{
-                  marginRight: "0.5rem",
+                  fontWeight: 700,
+                  display: "flex",
+                  alignItems: "center",
                 }}
-              />
-              Erro
-            </b>
-            : {error}
-          </T>
-        )}
+              >
+                <FiAlertCircle
+                  style={{
+                    marginRight: "0.5rem",
+                  }}
+                />
+                Erro
+              </b>
+              : {error}
+            </T>
+          )}
+        </motion.div>
       </Col>
-      <Spacer y={1} />
+      <Spacer y={2} />
       <ButtonBorder
         loading={loading}
         css={{
           w: "100%",
-          p: "2.3rem",
+          p: "2.1rem",
         }}
         size="xl"
-        onClick={login}
+        onPress={login}
       >
         <T
           style={{
@@ -347,12 +393,6 @@ function EndLogin({ setSteap }: any) {
           Continuar
         </T>
       </ButtonBorder>
-      <Spacer y={1.2} />
-      <Link>Entre em uma conta empresarial</Link>
-      <Spacer y={0.5} />
-      <NextLink href="/signup">
-        <Link>Faça seu cadastro</Link>
-      </NextLink>
     </>
   );
 }

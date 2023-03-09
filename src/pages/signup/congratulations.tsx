@@ -17,7 +17,7 @@ export default function Congratulations() {
         alt="Welcome-message"
         button={{
           text: <T h5>Vamos lá!</T>,
-          onClick: () => {
+          onPress: () => {
             router.push("/");
           },
         }}

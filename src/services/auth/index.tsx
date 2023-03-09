@@ -1,4 +1,4 @@
-import provider from "@/utils/provider";
+import provider from "@/services/provider";
 
 export type User = {
   id: number;
@@ -9,6 +9,7 @@ export type User = {
   phone?: string;
   customerId: string;
 };
+
 export type CheckEmail = {
   email: string;
 };
@@ -23,12 +24,15 @@ export type RegisterBody = {
   password: string;
   phone?: string;
 };
-export type TokenResponse = {
-  token: string;
-};
+export type TokenResponse =
+  | {
+      token: string;
+    }
+  | Error;
 export type Error = {
   message: string;
   status: number;
+  field?: string;
 };
 export type CheckEmailResponse = {
   message: string;
@@ -75,11 +79,5 @@ export const authService = {
     provider.post<CheckEmailResponse>("auth/check-email", data),
   forgotPassword: (data: ForgotPasswordBody) =>
     provider.post<ForgotPasswordResponse>("auth/forgot-password", data),
-  resetPassword: (data: ResetPasswordBody) =>
-    provider.post<ResetPasswordResponse>("auth/reset-password", data),
-  changePassword: (data: ChangePasswordBody) =>
-    provider.post<ChangePasswordResponse>("auth/change-password", data),
-  updateProfile: (data: UpdateProfileBody) =>
-    provider.post<UpdateProfileResponse>("auth/update-profile", data),
-  getUser: () => provider.get<User>("auth/user"),
+  getUser: () => provider.get<User>("auth/me"),
 };
